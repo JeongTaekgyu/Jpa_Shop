@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.9'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'jpabook'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor	// lombok 때문에 셋팅된 거임
+	}
+}
+
+repositories {
+	mavenCentral()	// repositories 의 mavenCentral에러 라이브러리를 받게다는 설정
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	// 쿼리 파라미터를 로그에 남기기 - 개발단계에서는 사용해도 되는데 운영에서는 성능이 안좋을 수도있다. 병목이 발생할 수 도 있기때문에 운영에 쓰는건 고려하자
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
+	implementation 'junit:junit:4.13.1'// 서버 재실행 안해도 페이지 리로딩할 때 html에서 수정한거 반영됨
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
