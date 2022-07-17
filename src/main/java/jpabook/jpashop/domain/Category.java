@@ -28,9 +28,9 @@ public class Category {
     // 같은 엔티티에 대해서 부모 자식 셀프 연관관계를 걸었다.
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Category parent;
+    private Category parent;    // 부모
 
     @OneToMany(mappedBy = "parent")
-    private List<Category> child = new ArrayList<>();
+    private List<Category> child = new ArrayList<>(); // 자식
 
 }
