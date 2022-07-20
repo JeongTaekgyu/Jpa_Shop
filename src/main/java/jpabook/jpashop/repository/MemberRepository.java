@@ -1,6 +1,7 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,10 +9,10 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 // @Repository 어노테이션을 사용하면 ComponentSacn에 의해서 자동으로 스프링 bean으로 관리 된다.
 @Repository // @Repository Ctrl 클릭해서 보면 @Component 어노테이션이 있는데 그 어노테이션이 있으면 컴포넌트 스캔의 대상이된다.
+@RequiredArgsConstructor // final 있는 필드만 가지고 생성자를 만들어준다.
 public class MemberRepository {
 
-    @PersistenceContext
-    private EntityManager em; // 스프링이 EntityManager를 만들어서 걔를 주입해준다.
+    private final EntityManager em; // 스프링이 EntityManager를 만들어서 걔를 주입해준다.
 
     public void save(Member member){
         em.persist(member);
