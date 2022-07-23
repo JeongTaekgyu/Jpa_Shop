@@ -2,7 +2,7 @@
 # spring.io -> Projects -> Spring Boot -> Learn -> spring ??? ?? reference ??
 spring:
 #  datasource:
-#    url : jdbc:h2:mem:test  # in-memory , 참고로 Spring Boot는 별도의 설정이 없으면 메모리 모드로 실행한다.
+#    url : jdbc:h2:mem:test  # in-memory , 참고로 Spring Boot는 별도의 설정이 없으면 메모리 모드로 실행한다. 이렇게 하면 h2를 켜지 않아도 된다.
 #    username: sa
 #    password:
 #    driver-class-name: org.h2.Driver
