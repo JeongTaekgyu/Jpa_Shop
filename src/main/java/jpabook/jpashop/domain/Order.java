@@ -53,5 +53,55 @@ public class Order {
         delivery.setOrder(this);
     }
 
+    // ==생성 메서드== //
+    // createOrderItem 에서 removeStock 으로 재고를 줄이고 올거다.
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems){
+                                             // 참고로 ...(가변인자)은 여러개의 매개변수를 받을 수 있다는 말이다.
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for (OrderItem orderItem : orderItems){
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    // ==비즈니스 로직== //
+    /*
+     * 주문 취소
+     */
+    public void cancel() {
+        if(delivery.getStatus() == DeliveryStatus.COMP) {   // 배송 완료이면
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능 합니다.");
+        }
+
+        // 배송 완료 아니면 상태를 CANCEL로 바꿈
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem: orderItems ) {
+            orderItem.cancel();
+        }
+    }
+
+    // ==조회 로직== //
+    /*
+    * 전체 주문 가격 조회
+    * */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for(OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+
+        return totalPrice;
+
+        // 위에 로직을 Replace with sum() 으로 바꾸고 -> inline variable 한 결과이다.
+        /*
+        return orderItems.stream().
+                mapToInt(OrderItem::getTotalPrice).
+                sum();
+        */
+    }
 
 }
