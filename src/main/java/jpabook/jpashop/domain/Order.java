@@ -19,14 +19,14 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL) // Order만 persist하면 Member 까지 persist 된다. 물론 ALL이기 때문에 다른 조건들도 적용된다.
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "memder_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // Order만 persist하면 orderItems 까지 persist 된다. 물론 ALL이기 때문에 다른 조건들도 적용된다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) //
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // Order만 persist하면 Delivery 까지 persist 된다. 물론 ALL이기 때문에 다른 조건들도 적용된다.
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
