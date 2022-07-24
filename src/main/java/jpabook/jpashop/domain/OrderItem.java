@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.Item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // protected OrderItem() {} 와 동일한 코드이다.
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -26,6 +29,11 @@ public class OrderItem {
     
     private int orderPrice; // 주문 가격
     private int count;  // 주문 수량
+
+    // 참고로 Service 로직에서 new OrderItem으로 생성을 할 수도 있는데
+    // 그렇게 되면 새로운 컴럼들 추가, 수정 될 때마다 수정 해야 돼서 여기서 다른 곳에서 사용하지 말라고 protected로 막아줬다.
+//    protected OrderItem() {
+//    }
 
     // ==생성 메서드== //
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {

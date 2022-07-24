@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -23,6 +26,11 @@ public class Order {
     @JoinColumn(name = "memder_id")
     private Member member;
 
+    // ★★★ 참고로 CascadeType.ALL을 사용할 수 있는 이유는
+    // 1. Order만 OrderItem과 Delivery을 참조해서 쓰기 때문이다. 즉, Order만 OrderItem, Delivery를 관리하기 때문이다.
+    // 물론 OrderItem과, Delivery 이 다른 것을 참조할 수 있지만 Order를 제외한 다른 곳에서 OrderItem과, Delivery이 참조되는 곳이 없다.
+    // 2. Order와 OrderItem, Delivery의 persist 라이프 사이클이 똑같기 때문이다.
+    // 이럴 때만 CascadeType을 사용하면 된다.
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // Order만 persist하면 orderItems 까지 persist 된다. 물론 ALL이기 때문에 다른 조건들도 적용된다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
