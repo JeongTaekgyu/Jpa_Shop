@@ -33,6 +33,12 @@ public class OrderServiceTest {
     @Autowired OrderService orderService;
     @Autowired OrderRepository orderRepository;
 
+    /*
+    참고로 given - when - then은
+    given : 테스트에서 구체화하고자 하는 행동을 시작하기 전에 테스트 상태를 설명하는 부분
+    when  : 구체화하고자 하는 그 행동
+    then  : 어떤 특정한 행동 때문에 발생할거라고 예상되는 변화에 대한 설명
+    * */
     @Test
     public void 상품주문() throws Exception {
         // given
