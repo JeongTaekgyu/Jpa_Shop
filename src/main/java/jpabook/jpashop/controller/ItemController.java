@@ -63,11 +63,15 @@ public class ItemController {
         return "items/updateItemForm";
     }
 
+    /**
+     * 상품 수정, 권장 코드
+     */
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form){
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
 
-        Book book = new Book();
-
+        /*Book book = new Book();
+        // db에 한번 저장 되고 불러온다-> 준영속 엔티티 ( 여기선 Book 객체)
+        // 준영속 엔티티는 JPA가 관리하지 않는다.
         book.setId(form.getId());
         book.setName(form.getName());
         book.setPrice(form.getPrice());
@@ -75,7 +79,10 @@ public class ItemController {
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
 
-        itemService.saveItem(book);
+        itemService.saveItem(book);*/
+
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+
         return "redirect:/items";
     }
 
