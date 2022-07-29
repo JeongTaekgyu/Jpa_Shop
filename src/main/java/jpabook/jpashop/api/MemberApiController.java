@@ -8,12 +8,37 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class MemberApiController {
 
     private final MemberService memberService;
+
+    //조회 V1: 안 좋은 버전, 모든 엔티티가 노출, @JsonIgnore -> 이건 정말 최악, api가 이거 하나인가! 화면에 종속적이지 마라!
+    @GetMapping("/api/v1/members")
+    public List<Member> membersV1() {
+        return memberService.findMembers();
+    }
+
+    /**
+     * 조회 V2: 응답 값으로 엔티티가 아닌 별도의 DTO를 반환한다.
+     */
+    @GetMapping("/api/v2/members")
+    public Result membersV2() {
+
+        List<Member> findMembers = memberService.findMembers();
+
+        //엔티티 -> DTO 변환 ( List<Member> -> List<MemberDto> )
+        // MemberResponseDto 역할
+        List<MemberDto> collect = findMembers.stream()
+                .map(m -> new MemberDto(m.getName()))
+                .collect(Collectors.toList());
+
+        return new Result(collect);
+    }
 
     /**
      * 등록 V1: 요청 값으로 Member 엔티티를 직접 받는다.
@@ -78,6 +103,18 @@ public class MemberApiController {
         private Long id;
         private String name;
 
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {    // json 배열 타입으로 나가면 유연성이 떨어져서 Result<T>로 감싸줬다.
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {    // 필요한것만 노출한다.
+        private String name;
     }
 
 }
