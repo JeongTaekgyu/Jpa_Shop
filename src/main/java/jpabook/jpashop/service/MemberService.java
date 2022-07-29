@@ -49,4 +49,20 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+        /* 종료되면 스프링이 aop가 동작하면서
+           트랜잭션 어노테이션에 의해서 트랜잭션 관련된 aop가 끝나는 시점에 트랜잭션 커밋이 되면서
+           jpa가 영속성 컨텍스트를 flish하고 데이터베이스 트랜잭션 commit한다.
+           jpa가 변경감지를 해서 쿼리를 날려준다.
+        */
+
+        /* 반환타입으로 member를 반환해도 되는데
+        걔를 반환하면 영속상태가 끊긴 member를 반환하게 된다.
+        즉, 커맨드와 쿼리를 분리해하는게 좋다
+        */
+    }
 }
