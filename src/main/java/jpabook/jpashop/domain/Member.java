@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Member {
     @Embedded   // jpa 내장타입
     private Address address;
 
+    @JsonIgnore // 양 방향 연관관계에서는 명시해야한다. 안그러면 무한 루프로 참조한다
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 

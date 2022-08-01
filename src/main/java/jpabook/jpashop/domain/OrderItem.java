@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook.jpashop.domain.Item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class OrderItem {
     @JoinColumn(name = "item_id")   // 단방향이라 Item 쪽에는 코드 없음
     private Item item;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_id")  // 양방향이라 Order 쪽에 코드 있음
     private Order order;
