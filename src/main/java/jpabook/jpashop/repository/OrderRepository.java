@@ -109,4 +109,16 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    public List<Order> findAllWithMemberDelivery() {
+        /*
+        프록시도 아니고 진짜 객체를 채워서 2:55
+        fetch 라는 명령어는 sql은 없고 jpa에만 있는 문법이다.
+        실무에서 jpa를 쓰려면 100% 이해해야한다.
+         */
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m"+
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
 }
