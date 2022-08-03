@@ -4,11 +4,13 @@ import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//@BatchSize(size = 100)
 @Entity
 // 상속관계 매핑은 상속관계 전략을 지정해야한다. 이 전략을 부모클래스에 입력해야한다.
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // 싱글테이블 전략(한 테이블에 다 넣겠다) - ppt의 회원 테이블 분석에 있는 ITEM 테이블 참고
