@@ -12,7 +12,7 @@ public class OrderSimpleQueryRepository {
 
     private final EntityManager em;
 
-    // DTO를 직접 조회하는 V4 방법
+    // DTO를 직접 조회하는 simple V4 방법
     public List<OrderSimpleQueryDto> findOrderDtos() {
         // 내가 원하는 것만 select 할 수 있다. v3와 log 비교해보면 알 수 있다.
         // 그런데 무조건 v4 가 좋다고 볼수 없다 trade off 관계이다.
