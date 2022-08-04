@@ -123,6 +123,7 @@ public class OrderRepository {
         ).getResultList();
     }
 
+    // /api/v3/orders 에서 호출
     public List<Order> findAllWithItem() {
         /*
         페치 조인으로 SQL이 1번만 실행됨
