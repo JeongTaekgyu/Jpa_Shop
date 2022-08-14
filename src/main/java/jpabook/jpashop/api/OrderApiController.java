@@ -47,6 +47,7 @@ public class OrderApiController {
         return all;
     }
 
+    // 엔티티 조회후 DTO로 변환 V2
     @GetMapping("/api/v2/orders")
     public List<OrderDto> ordersV2() {
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
@@ -60,6 +61,7 @@ public class OrderApiController {
         return result;
     }
 
+    // fetch join(패치 조인)으로 쿼리 수 최적화 V3
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithItem();

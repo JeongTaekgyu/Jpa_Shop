@@ -43,7 +43,7 @@ public class OrderQueryRepository {
                         "select new jpabook.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" +
                                 " from OrderItem oi" +
                                 " join oi.item i" +
-                                " where oi.order.id in :orderIds", OrderItemQueryDto.class)
+                                " where oi.order.id in :orderIds", OrderItemQueryDto.class) // in절 사용
                 .setParameter("orderIds", orderIds)
                 .getResultList();
 

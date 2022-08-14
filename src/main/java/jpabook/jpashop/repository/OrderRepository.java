@@ -123,7 +123,7 @@ public class OrderRepository {
         ).getResultList();
     }
 
-    // /api/v3/orders 에서 호출 ( 컬렉션 조회할 때 fetch join )
+    // /api/v3/orders 에서 호출 ( 컬렉션 조회할 때(일대다) fetch join ), 근데 페이징이 안됨
     public List<Order> findAllWithItem() {
         /*
         페치 조인으로 SQL이 1번만 실행됨
@@ -142,7 +142,7 @@ public class OrderRepository {
                 .getResultList();
     }
 
-    // 페이징 처리 버전 - batch size 가 있어야 한다.
+    // 컬렉션 조회할 때 페이징 처리 버전 - batch size 가 있어야 한다.
     public List<Order> findAllWithMemberDelivery(int offset, int limit) {
         return em.createQuery(
                         "select o from Order o" +
