@@ -53,8 +53,11 @@ public class OrderQueryRepository {
     }
 
     private List<Long> toOrderIds(List<OrderQueryDto> result) {
+        // 기존에 자바 컬렉션이나 배열의 원소를 가공할떄, for문, foreach 등으로 원소 하나씩 골라내여 가공을 하였다면,
+        // Stream 을 이용하여 람다함수형식으로 간결하고 깔끔하게 요소들의 처리가 가능하다.
+        // map은 요소들을 특정조건에 해당하는 값으로 변환해 준다.
         List<Long> orderIds = result.stream()
-                .map(o -> o.getOrderId())
+                .map(o -> o.getOrderId())   // result 에서 OrderId 만 모아서 리스트를 만든다.
                 .collect(Collectors.toList());
         return orderIds;
     }
