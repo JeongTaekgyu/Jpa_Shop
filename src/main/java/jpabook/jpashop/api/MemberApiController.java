@@ -59,8 +59,11 @@ public class MemberApiController {
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
                                         // 얘는 엔티티를 바꿔도 문제 없다. 하지만 v1은 문제 있다.
-        Member member = new Member();
-        member.setName(request.getName());
+        /*Member member = new Member();
+        member.setName(request.getName());*/
+        Member member = Member.builder()
+                .name(request.getName())
+                .build();
 
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);

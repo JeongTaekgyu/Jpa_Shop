@@ -88,9 +88,15 @@ public class InitDb {
         }
 
         private Member createMember(String name, String city, String street, String zipcode) {
-            Member member = new Member();
+            /*Member member = new Member();
             member.setName(name);
-            member.setAddress(new Address(city, street, zipcode));
+            member.setAddress(new Address(city, street, zipcode));*/
+
+            Member member = Member.builder()
+                    .name(name)
+                    .address(new Address(city, street, zipcode))
+                    .build();
+
             return member;
         }
 
