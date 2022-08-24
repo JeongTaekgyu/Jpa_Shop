@@ -27,14 +27,21 @@ public class ItemController {
 
     @PostMapping("/items/new")
     public String create(BookForm form){
-        Book book = new Book();
+        /*Book book = new Book();
 
         // setter 제거하고 create메서드 같은거 하는게 더 좋은 코드이다. 하지만 가벼운 예제 하려고 setter 사용한다.
         book.setName(form.getName());
         book.setPrice(form.getPrice());
         book.setStockQuantity(form.getStockQuantity());
         book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        book.setIsbn(form.getIsbn());*/
+        Book book = Book.builder()
+                .name(form.getName())
+                .price(form.getPrice())
+                .stockQuantity(form.getStockQuantity())
+                .author(form.getAuthor())
+                .isbn(form.getIsbn())
+                .build();
 
         itemService.saveItem(book);
         return "redirect:/items";
