@@ -52,7 +52,14 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public void update(Long id, String name) {
         Member member = memberRepository.findOne(id);
-        member.setName(name);
+//        member.setName(name);
+
+        /*member = Member.builder()
+                .name(name)
+                .build();*/
+        member.updateMemberName(name);
+        memberRepository.save(member);
+
         /* 종료되면 스프링이 aop가 동작하면서
            트랜잭션 어노테이션에 의해서 트랜잭션 관련된 aop가 끝나는 시점에 트랜잭션 커밋이 되면서
            jpa가 영속성 컨텍스트를 flish하고 데이터베이스 트랜잭션 commit한다.

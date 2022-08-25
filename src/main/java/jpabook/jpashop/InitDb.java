@@ -73,17 +73,30 @@ public class InitDb {
         }
 
         private Book createBook(String name, int price, int stockQuantity) {
-            Book book1 = new Book();
+            /*Book book1 = new Book();
             book1.setName(name);
             book1.setPrice(price);
-            book1.setStockQuantity(stockQuantity);
+            book1.setStockQuantity(stockQuantity);*/
+
+            Book book1 = Book.builder()
+                    .name(name)
+                    .price(price)
+                    .stockQuantity(stockQuantity)
+                    .build();
+
             return book1;
         }
 
         private Member createMember(String name, String city, String street, String zipcode) {
-            Member member = new Member();
+            /*Member member = new Member();
             member.setName(name);
-            member.setAddress(new Address(city, street, zipcode));
+            member.setAddress(new Address(city, street, zipcode));*/
+
+            Member member = Member.builder()
+                    .name(name)
+                    .address(new Address(city, street, zipcode))
+                    .build();
+
             return member;
         }
 

@@ -1,15 +1,15 @@
 package jpabook.jpashop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor
 public class Member {
 
     @Id @GeneratedValue
@@ -25,4 +25,13 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @Builder
+    public Member(String name, Address address){
+        this.name = name;
+        this.address = address;
+    }
+
+    public void updateMemberName(String name){
+        this.name = name;
+    }
 }
