@@ -20,7 +20,7 @@ public class Category {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany // 여기서는 다대다 관계를 확인하기 위해 했을뿐 실무에서는 사용하지 말자!
     @JoinTable(name = "category_item",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")

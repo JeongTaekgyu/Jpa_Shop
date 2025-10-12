@@ -26,7 +26,7 @@ public class OrderItem {
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "order_id")  // 양방향이라 Order 쪽에 코드 있음
+    @JoinColumn(name = "order_id") // 양방향이라 Order 쪽에 코드 있음 - 외래키가 있는 주인 족에서 상대방한테 @JoinColumn한다.
     private Order order;
     
     private int orderPrice; // 주문 가격

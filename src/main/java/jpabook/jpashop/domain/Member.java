@@ -21,8 +21,8 @@ public class Member {
     @Embedded   // jpa 내장타입
     private Address address;
 
-    @JsonIgnore // 양 방향 연관관계에서는 명시해야한다. 안그러면 무한 루프로 참조한다
-    @OneToMany(mappedBy = "member")
+    @JsonIgnore // 양 방향 연관관계에서는 명시해야한다. 안그러면 무한 루프로 참조한다.
+    @OneToMany(mappedBy = "member") // 양방향 연관관계의 주인은 Order에 있는 member이다.
     private List<Order> orders = new ArrayList<>();
 
     @Builder

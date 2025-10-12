@@ -24,7 +24,7 @@ public class Order {
     private Long id;
 
     @ManyToOne(fetch = LAZY)    // 지연로딩이면 진짜 Member 객체를 안끌고 온다. 즉, Member를 상속받아서 proxy Member 객체를 생성해서 넣어둔다.
-    @JoinColumn(name = "memder_id")
+    @JoinColumn(name = "memder_id") // 외래키가 있는 주인 쪽에서 상대방한테 @JoinColumn
     private Member member;
 
     // ★★★ 참고로 CascadeType.ALL을 사용할 수 있는 이유는
@@ -33,11 +33,12 @@ public class Order {
     // 2. Order와 OrderItem, Delivery의 persist 라이프 사이클이 똑같기 때문이다.
     // 이럴 때만 CascadeType을 사용하면 된다.
     //@BatchSize(size = 100) // 컬렉션이나, 프록시 객체를 한꺼번에 설정한 size 만큼 IN 쿼리로 조회한다.
+    // 양방향 연관관계의 주인은 OrderItem 있는 Order 이다.
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // Order만 persist하면 orderItems 까지 persist 된다. 물론 ALL이기 때문에 다른 조건들도 적용된다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // Order만 persist하면 Delivery 까지 persist 된다. 물론 ALL이기 때문에 다른 조건들도 적용된다.
-    @JoinColumn(name = "delivery_id")
+    @JoinColumn(name = "delivery_id") // 외래키가 있는 주인 족에서 상대방한테 @JoinColumn한다.
     private Delivery delivery;
 
     private LocalDateTime orderDate;    // 주문시간, 자바8에서 hibernate가 지원해준다.

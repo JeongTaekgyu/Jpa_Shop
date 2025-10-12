@@ -28,6 +28,7 @@ public abstract class Item {    // 구현체를 가지고할거라서 Item은 �
     private int price;
     private int stockQuantity;
 
+    // 여기서는 다대다 관계를 확인하기 위해 했을뿐 실무에서는 사용하지 말자!
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
